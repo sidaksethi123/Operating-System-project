@@ -7,21 +7,26 @@
 #define LightGreyOnBlack 0x07
 
 
-void clear_screen() {
+void display_str(char *str){
     char* video_memory = (char*) VIDEO_MEMORY;
-    for (int i = 0; i < VGA_WIDTH * VGA_HEIGHT; i++) {
-        video_memory[i * 2] = '\0'; // Character
-        video_memory[i * 2 + 1] = white_on_black; // Color
+
+    for(unsigned int i = 0; str[i] != '\0'; i++) {
+        video_memory[i * 2] = str[i];
+        video_memory[i * 2 + 1] = white_on_black;
     }
 }
 
 void kmain() {
-    // Initialize the kernel
-    init_kernel();
-
-    // Enter the main loop
-    while (1) {
-        
-        perform_kernel_tasks();
+    char* video_memory = (char*) VIDEO_MEMORY;
+    for (int i = 0; i < VGA_WIDTH * VGA_HEIGHT; i++) {
+        video_memory[i * 2] = '\0';
+        video_memory[i * 2 + 1] = white_on_black;
     }
+
+    display_str(char *str "Hello, World!");
+    
+    while (1) {
+
+    }
+
 }
