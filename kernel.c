@@ -1,11 +1,6 @@
-# define VIDEO_MEMORY 0xB8000
-# define WHITE_ON_BLACK 0x0F
-#define MAX_TASKS 256
-#define VGA_WIDTH 80
-#define VGA_HEIGHT 25
-#define white_on_black 0x0F
-#define LightGreyOnBlack 0x07
-
+#include "constants.h"
+#include "screen.c"
+#include "keyboard.c"
 
 void display_str(char *str){
     char* video_memory = (char*) VIDEO_MEMORY;
@@ -17,15 +12,17 @@ void display_str(char *str){
 }
 
 void kmain() {
-    char* video_memory = (char*) VIDEO_MEMORY;
-    for (int i = 0; i < VGA_WIDTH * VGA_HEIGHT; i++) {
-        video_memory[i * 2] = '\0';
-        video_memory[i * 2 + 1] = white_on_black;
-    }
 
-    display_str(char *str "Hello, World!");
+    display_str("Custom Shell\n");
     
     while (1) {
+        unsigned char key = keyboardtest();
+        if (key) {
+            unsigned int row = display_character(key);
+        }
+        if (rownum >= VGA_HEIGHT) {
+            scroll_screen();
+        }
 
     }
 
